@@ -8,7 +8,7 @@ const commit = 'git commit -m "salut"';
 const push = 'git push';
 
 const init = () => {
-  return 'git init && git add . && git commit -m "first commit" && git remote add origin https://github.com/gfxxx/gix.git && git push'
+  return 'git init && git add . && git commit -m "first commit" && git remote add origin https://github.com/gfxxx/gix.git && git push -u origin master'
 }
 
 const ac = () => {
