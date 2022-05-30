@@ -11,14 +11,14 @@ const init = () => {
     // Get origin and throw error if no origin provided
     const originIndex = command.findIndex(e => e === '-o');
     console.log({originIndex})
-    if(!originIndex) throw new Error('An origin is required use -o to set origin');
+    if(originIndex === -1) throw new Error('An origin is required use -o to set origin');
     const origin = command[originIndex + 1];
     // Get branch and set it to master if none provided
     const branchIndex = command.findIndex(e => e === '-b');
-    const branch = branchIndex ? command[branchIndex + 1] : 'master';
+    const branch = branchIndex !== -1 ? command[branchIndex + 1] : 'master';
     // Get commit message and set it to "First commit" if none is provided
     const messageIndex = command.findIndex(e => e === '-m');
-    const message = messageIndex ? command[messageIndex + 1]: 'First commit';
+    const message = messageIndex !== -1 ? command[messageIndex + 1]: 'First commit';
   
     return `git init && git add . && git commit -m "${message}" && git remote add origin ${origin} && git push origin ${branch}`
   } catch (error) {
@@ -30,7 +30,7 @@ const ac = () => {
   console.log('ac');
   // Get commit message and set it to "New commit" if none is provided
   const messageIndex = command.findIndex(e => e === '-m');
-  const message = messageIndex ? command[messageIndex + 1]: 'New commit';
+  const message = messageIndex !==1 ? command[messageIndex + 1]: 'New commit';
   return `git add . && git commit -m ${message}`;
 }
 
@@ -38,7 +38,7 @@ const acp = () => {
   console.log('acp');
   // Get commit message and set it to "New commit" if none is provided
   const messageIndex = command.findIndex(e => e === '-m');
-  const message = messageIndex ? command[messageIndex + 1]: 'New commit';
+  const message = messageIndex !== -1 ? command[messageIndex + 1]: 'New commit';
   return `git add . && git commit -m ${message} && git push`;
 }
 
