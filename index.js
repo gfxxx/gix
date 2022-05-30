@@ -1,6 +1,4 @@
-const command = process.argv;
-
-const value = command[2];
+const command = process.argv.slice(2);
 
 // Git Commands
 const add = 'git add';
@@ -8,22 +6,39 @@ const commit = 'git commit -m "salut"';
 const push = 'git push';
 
 const init = () => {
-  return 'git init && git add . && git commit -m "first commit" && git remote add origin https://github.com/gfxxx/gix.git && git push origin master'
+  // Get origin and throw error if no origin provided
+  const originIndex = command.findIndex(i => '-o');
+  if(originIndex === -1) throw new Error('An origin is required use -o to set origin');
+  const origin = command[originIndex + 1];
+  // Get branch and set it to master if none provided
+  const branchIndex = command.findIndex(i => '-b');
+  const branch = branchIndex !== -1 ? command[branchIndex + 1] : 'master';
+  // Get commit message and set it to "First commit" if none is provided
+  const messageIndex = command.findIndex(i => '-m');
+  const message = messageIndex !== -1 ? command[messageIndex + 1]: 'First commit';
+
+  return `git init && git add . && git commit -m "${message}" && git remote add origin ${origin} && git push origin ${branch}`
 }
 
 const ac = () => {
   console.log('ac');
-  return add + ' && ' + commit;
+  // Get commit message and set it to "New commit" if none is provided
+  const messageIndex = command.findIndex(i => '-m');
+  const message = messageIndex !== -1 ? command[messageIndex + 1]: 'New commit';
+  return `git add . && git commit -m ${message}`;
 }
 
 const acp = () => {
   console.log('acp');
-  return add + ' && ' + commit + ' && ' + push;
+  // Get commit message and set it to "New commit" if none is provided
+  const messageIndex = command.findIndex(i => '-m');
+  const message = messageIndex !== -1 ? command[messageIndex + 1]: 'New commit';
+  return `git add . && git commit -m ${message} && git push`;
 }
 
 const execut = () => {
   let com;
-  switch(value) {
+  switch(command[0]) {
     case 'init':
       com = init();
       break;
