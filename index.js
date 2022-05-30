@@ -7,17 +7,21 @@ const push = 'git push';
 
 const init = () => {
   // Get origin and throw error if no origin provided
-  const originIndex = command.findIndex(i => '-o');
-  if(originIndex === -1) throw new Error('An origin is required use -o to set origin');
-  const origin = command[originIndex + 1];
-  // Get branch and set it to master if none provided
-  const branchIndex = command.findIndex(i => '-b');
-  const branch = branchIndex ? command[branchIndex + 1] : 'master';
-  // Get commit message and set it to "First commit" if none is provided
-  const messageIndex = command.findIndex(i => '-m');
-  const message = messageIndex ? command[messageIndex + 1]: 'First commit';
-
-  return `git init && git add . && git commit -m "${message}" && git remote add origin ${origin} && git push origin ${branch}`
+  try {
+    const originIndex = command.findIndex(i => '-o');
+    if(originIndex === -1) throw new Error('An origin is required use -o to set origin');
+    const origin = command[originIndex + 1];
+    // Get branch and set it to master if none provided
+    const branchIndex = command.findIndex(i => '-b');
+    const branch = branchIndex ? command[branchIndex + 1] : 'master';
+    // Get commit message and set it to "First commit" if none is provided
+    const messageIndex = command.findIndex(i => '-m');
+    const message = messageIndex ? command[messageIndex + 1]: 'First commit';
+  
+    return `git init && git add . && git commit -m "${message}" && git remote add origin ${origin} && git push origin ${branch}`
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 const ac = () => {
