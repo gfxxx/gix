@@ -33,19 +33,24 @@ const init = () => {
 }
 
 const ac = () => {
-  console.log('ac');
+  const cmds = [];
+  cmds.push('git add .');
   // Get commit message and set it to "New commit" if none is provided
   const messageIndex = command.findIndex(e => e === '-m');
   const message = messageIndex !==1 ? command[messageIndex + 1]: 'New commit';
-  return `git add . && git commit -m ${message}`;
+  cmds.push(`git commit -m ${message}`);
+  return cmds
 }
 
 const acp = () => {
-  console.log('acp');
+  const cmds = []
+  cmds.push('git add .');
   // Get commit message and set it to "New commit" if none is provided
   const messageIndex = command.findIndex(e => e === '-m');
   const message = messageIndex !== -1 ? command[messageIndex + 1]: 'New commit';
-  return `git add . && git commit -m ${message} && git push`;
+  cmds.push(`git commit -m ${message}`);
+  cmds.push('git push');
+  return cmds
 }
 
 const execut = () => {
