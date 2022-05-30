@@ -20,7 +20,7 @@ const init = () => {
     const messageIndex = command.findIndex(e => e === '-m');
     const message = messageIndex !== -1 ? command[messageIndex + 1]: 'First commit';
   
-    return `git init && git add . && git commit -m "${message}" && git remote add origin ${origin} && git push origin ${branch}`
+    return `git init && git add . && git commit -m "${message}" && git remote add origin ${origin}`
   } catch (error) {
     console.error(error);
   }
